@@ -1,0 +1,29 @@
+#GZIP压缩模块配置
+<ifmodule mod_deflate.c>
+#启用对特定MIME类型内容的压缩
+SetOutputFilter DEFLATE
+SetEnvIfNoCase Request_URI .(?:gif|jpe?g|png|exe|t?gz|zip|bz2|sit|rar|pdf|mov|avi|mp3|mp4|rm)$ no-gzip dont-vary #设置不对压缩的文件
+AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/x-httpd-php application/x-javascript #设置对压缩的文件
+</ifmodule>
+<IfModule mod_rewrite.c> 
+#RewriteEngine on
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+RewriteEngine On
+RewriteBase /
+#if the request is not secure
+RewriteCond %{HTTPS} off
+#redirect to the secure version
+RewriteRule (.*) https://%{HTTP_HOST}/$1 [R=301,L]
+RewriteCond %{REQUEST_FILENAME} !.(jpg|jpeg|gif|png|css|js|pl|txt)$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php56” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddType application/x-httpd-ea-php56 .php .php5 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

@@ -1,0 +1,459 @@
+
+/* ------------------
+ * gobal settings
+ * --------------- */
+body {
+background: #f1f1f1;
+color: #666;
+font-size: 14px;
+line-height: 1.7;
+font-family: Georgia,Times,"Times New Roman",serif;
+}
+
+* { padding: 0px; margin: 0px; }
+
+h1, h2, h3, h4, h5, h6 { font-weight: normal; }
+
+input, textarea { font-family: Helvetica, Arial, sans-serif; font-size: 100%; }
+
+input, textarea {
+    font-size: 13px;
+    padding: 2px;
+}
+
+.clearfix { clear: both; }
+
+textarea { *padding: 3px; }
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    textarea { padding: 3px; }
+}
+
+a {
+color: #06c;
+text-decoration: none;
+}
+a:hover {
+color: #ff4b33;
+}
+
+pre, code, tt {
+	font: 12px 'andale mono', 'lucida console', monospace; line-height: 0.5;
+}
+code { margin-bottom: 20px; }
+pre, code {
+display: block;
+overflow-x: auto;
+background: #f4f4f4;
+padding: 5px 10px;
+border: 1px solid #eee;
+}
+
+/* Remove possible quote marks (") from <q>, <blockquote>. */
+blockquote:before, blockquote:after, q:before, q:after { content: ""; }
+blockquote, q { quotes: "" ""; }
+
+blockquote  { margin: 1.5em; color: #666; font-style: italic; }
+
+/*code {display: block; border: 1px solid #AAAAAA; background: #F1ECDD; color: #444; line-height: 16px; overflow: auto;
+	font-family: 'andale mono','lucida console',monospace; padding: 10px; margin: 10px 0;}*/
+
+/* Tables
+-------------------------------------------------------------- */
+
+/* Tables still need 'cellspacing="0"' in the markup. */
+table { border-collapse: separate; border-spacing: 0; }
+caption, th, td { text-align: left; font-weight: normal; }
+table, td, th { vertical-align: middle; }
+
+table       { margin-bottom: 1.4em; width:100%; }
+th          { font-weight: bold; }
+thead th 		{ background: #c3d9ff; }
+th,td,caption { padding: 4px 10px 4px 5px; }
+tr.even td  { background: #e5ecf9; }
+tfoot       { font-style: italic; }
+caption     { background: #eee; }
+
+fieldset    { padding:1.4em; margin: 0 0 1.5em 0; border: 1px solid #ccc; }
+legend      { font-weight: bold; }
+
+
+ul { list-style-type: disc; }
+
+/* -------------------------
+ * reset width to 840px
+ * ---------------------- */
+.container_16 { width: 940px; padding-left: 30px; padding-right: 30px; margin: auto; background: #fff; }
+
+/* ------------------
+ * header
+ * --------------- */
+
+#header {
+margin-top: 20px;
+padding-top: 30px;
+padding-bottom: 10px;
+height: 35px;
+overflow: hidden;
+}
+#header h1 {
+float: left;
+font-size: 30px;
+line-height: 35px;
+font-weight: bold;
+font-family: Arial,sans-serif;
+}
+#header a {
+color: #000;
+}
+p.description {
+float: right;
+line-height: 35px;
+}
+#header_img {
+height: 200px;
+overflow: hidden;
+}
+#header_img img {
+border-top: 2px solid #000;
+}
+/* = header navigation menu */
+#nav_menu ul {
+height: 35px;
+background: #000;
+overflow: hidden;
+padding-left: 15px;
+border-top: 1px solid #000;
+}
+#nav_menu li {
+list-style: none;
+float: left;
+font-size: 12px;
+}
+#nav_menu li a {
+float: left;
+padding-left: 15px;
+padding-right: 15px;
+height: 32px;
+line-height: 32px;
+padding-top: 3px;
+color: #aaa;
+}
+#nav_menu li a:hover {
+background: #333;
+color: #fff;
+}
+#nav_menu li.current a {
+color: #fff;
+}
+
+#wrapper {
+padding-top: 20px;
+margin-bottom: 20px;
+}
+
+/* ------------------
+ * content
+ * --------------- */
+#content { overflow: hidden; float: left; width: 650px; }
+#content p { margin-bottom: 15px; }
+#comments p { margin-bottom: 5px; }
+
+.post {
+margin-bottom: 20px;
+padding-bottom: 5px;
+border-bottom: 1px solid #eee;
+width: 100%;
+}
+
+.post img {
+border: 5px solid #eee;
+}
+
+h2.entry_title {
+margin-bottom: 0;
+font-size: 22px;
+font-weight: bold;
+font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Helvetica,Arial,sans-serif;
+}
+
+h2.entry_title a {
+color: #000;
+}
+
+.post h3 { font-size: 16px; }
+.post h4 { font-size: 15px; }
+.post h5 { font-size: 14px; font-weight: bold; }
+.post h6 { font-size: 13px; font-weight: bold; }
+
+.entry_data {
+color: #999;
+font-size: 12px;
+}
+
+.entry_data a {
+color: #999;
+text-decoration: underline;
+}
+
+.entry_data a:hover {
+color: #ff4b33;
+text-decoration: underline;
+}
+
+.entry_data span {
+margin-right: 4px;
+padding-right: 7px;
+border-right: 1px solid #eee;
+}
+
+
+/* = pages nav */
+ol.page-navigator {
+margin: 20px 0 0 0;
+color: #666;
+list-style: none;
+font-size: 12px;
+line-height: 30px;
+font-family: "Lucida Grande",Verdana,"Bitstream Vera Sans",Arial,sans-serif;
+}
+
+ol.page-navigator li {
+margin: 0 8px 0 0;
+display: inline;
+}
+
+ol.page-navigator li a {
+padding: 4px 8px;
+border: 1px solid #eee;
+text-decoration: none;
+color: #000;
+}
+
+ol.page-navigator li a:hover {
+background: #eee;
+}
+
+ol.page-navigator li.current a {
+background: #222;
+border-color: #222;
+color: #fff;
+}
+
+/* ------------------
+ * comment list
+ * --------------- */
+#comments {
+margin-top: 20px;
+}
+
+#comments h4 {
+font-size: 14px;
+font-weight: bold;
+}
+
+ol.comment-list, ol.comment-list ol {
+margin: 0;
+list-style: none;
+}
+
+ol.comment-list ol {
+padding-top: 10px;
+}
+
+ol.comment-list li {
+margin: 0;
+padding-bottom: 10px;
+}
+
+ol.comment-list li {
+	padding: 10px 15px;
+	margin-top: 10px;
+	border: 1px solid #eee;
+	background: #FAFAFA;
+	overflow: hidden;
+}
+
+ol.comment-list li.comment-level-odd {
+	background: #fff;
+}
+
+ol.comment-list li.comment-level-even {
+	background: #FAFAFA;
+}
+
+ol.comment-list li.comment-by-author {
+	border: 1px dashed #AAA;
+}
+
+ol.comment-list li .comment-reply {
+	text-align: right;
+}
+
+ol.comment-list li .comment-reply a {
+	font-size: 11px;
+	border: none;
+	color: #aaa;
+}
+
+ol.comment-list li .comment-reply a:hover {
+	color: #444;
+}
+
+.comment-meta {
+padding-bottom: 8px;
+/*border-bottom: 1px dashed #eee;*/
+color: #999;
+font-size: 11px;
+}
+.comment-author {
+display: block;
+font-size: 15px;
+color: #444;
+}
+
+.comment-author cite.fn {
+font-style: normal;
+}
+
+.comment-body {
+overflow: hidden;
+}
+
+img.avatar {
+/*display: none;*/
+float: left;
+margin: 6px 10px 0 0;
+}
+
+.respond {
+margin-top: 20px;
+}
+
+ol.comment-list li .respond {
+border-top: 1px solid #ddd;
+padding-top: 10px;
+}
+
+#comment_form {
+	padding-right: 8px;
+}
+
+.respond .cancel-comment-reply {
+	float: right;
+	font-size: 11px;
+}
+
+.respond .cancel-comment-reply a {
+	border: none;
+	color: #aaa;
+}
+
+.respond .cancel-comment-reply a:hover {
+	color: #444;
+}
+
+#comment_form label {
+	font-size: 12px;
+	color: #555;
+	display: block;
+	font-weight: bold;
+}
+
+#comment_form label .required {
+	color: #C04E37;
+	padding-left: 5px;
+	font-size: 14px;
+}
+#comment_form .text {
+border-color:#B7B7B7 #E8E8E8 #E8E8E8 #B7B7B7; border-style:solid; border-width:1px; 
+padding:5px; font-size:12px; color:#333; width: 250px;
+}
+#comment_form textarea {
+padding:5px; font-size:12px; width:450px; border-color:#B7B7B7 #E8E8E8 #E8E8E8 #B7B7B7;
+border-style:solid; border-width:1px; overflow:hidden;
+margin-top: 5px; margin-bottom: 5px;
+}
+input.submit {
+border-color:#B7B7B7 #E8E8E8 #E8E8E8 #B7B7B7; border-style:solid; border-width:1px; 
+padding:5px; font-size:12px; background:#111; color:#fff; width:100px;
+}
+input.search_text {
+border-color:#B7B7B7 #E8E8E8 #E8E8E8 #B7B7B7; border-style:solid; border-width:1px; 
+padding:5px; font-size:14px; color:#333; width: 230px;
+margin-top: 5px; background: url(search.gif) no-repeat 220px 5px;
+}
+
+
+/* ------------------
+ * sidebar
+ * --------------- */
+#sidebar {
+overflow: hidden;
+float: right;
+width: 250px;
+}
+.widget {
+margin: 0 0 20px 0px;
+}
+.widget h3 {
+font-size: 14px;
+margin-bottom: 5px;
+font-weight: bold;
+color: #000;
+}
+.widget ul {
+margin: 0;
+list-style-type: none;
+}
+.widget ul li {
+line-height: 26px;
+background: url(img.gif) no-repeat 0px 11px;
+padding-left: 10px;
+}
+
+/* ------------------
+ * footer 
+ * --------------- */
+#footer {
+margin-top: 30px;
+padding: 20px 0;
+font-size: 12px;
+border-top: 3px solid #000;
+}
+
+#footer a {
+color: #555;
+}
+#footer a:hover {
+text-decoration: underline;
+}
+
+span.foot_left {float: left;}
+span.foot_right {float: right;}
+/* -----------------
+ * misc
+ *--------------- */
+.aligncenter,
+div.aligncenter {
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
+
+.alignleft {
+float: left;
+}
+
+.alignright {
+float: right;
+}
+
+img.alignleft { margin: 4px 15px 0 0; }
+img.alignright { margin: 4px 0 0 15px; }
+
+.alt { 
+color: #666; 
+font-family: "Warnock Pro", "Goudy Old Style","Palatino","Book Antiqua", Georgia, serif; 
+font-weight: normal;
+}
