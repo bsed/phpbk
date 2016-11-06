@@ -58,9 +58,9 @@ $db = new Typecho_Db('Mysql', 'typecho_');
 $db->addServer(array (
   'host' => 'localhost',
   'user' => 'madmin',
-  'password' => 'LzVr6CB9&P(r}4CZ',
+  'password' => 'LzVr6CB9&P(r}4CZxDaQ',
   'charset' => 'utf8',
   'port' => '3306',
-  'database' => 'dbblog',
+  'database' => 'dbblogs',
 ), Typecho_Db::READ | Typecho_Db::WRITE);
 Typecho_Db::set($db);
