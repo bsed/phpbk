@@ -158,7 +158,8 @@ class Widget_Options extends Typecho_Widget
     protected function ___themeUrl()
     {
         return defined('__TYPECHO_THEME_URL__') ? __TYPECHO_THEME_URL__ :
-            Typecho_Common::url(__TYPECHO_THEME_DIR__ . '/' . $this->theme, __TYPECHO_CDN_DIR__);
+            //Typecho_Common::url(__TYPECHO_THEME_DIR__ . '/' . $this->theme, $this->siteUrl);
+		    Typecho_Common::url(__TYPECHO_THEME_DIR__ . '/' . $this->theme, __TYPECHO_CDN_DIR__);
     }
 
     /**
@@ -170,7 +171,8 @@ class Widget_Options extends Typecho_Widget
     protected function ___pluginUrl()
     {
         return defined('__TYPECHO_PLUGIN_URL__') ? __TYPECHO_PLUGIN_URL__ :
-            Typecho_Common::url(__TYPECHO_PLUGIN_DIR__, __TYPECHO_CDN_DIR__);
+            //Typecho_Common::url(__TYPECHO_PLUGIN_DIR__, $this->siteUrl);
+		    Typecho_Common::url(__TYPECHO_PLUGIN_DIR__, __TYPECHO_CDN_DIR__);
     }
 
     /**

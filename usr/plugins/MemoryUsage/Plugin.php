@@ -61,7 +61,7 @@ class MemoryUsage_Plugin implements Typecho_Plugin_Interface
     {
         $usage = function_exists('memory_get_usage') ? round(memory_get_usage() / 1024 / 1024 , 2) : 0;
         $limit = (int) ini_get('memory_limit');
-        echo "<script type='text/javascript'>$('div.typecho-head-guid>p.operate').appendText('内存占用: " . $usage . ' of ' . $limit . " Mb | ','top');</script>";
+        echo "<script type='text/javascript'>$('#usage-operate').appendText('内存占用: " . $usage . ' of ' . $limit . " Mb | ','top');</script>";
     }
 
     /**
@@ -74,4 +74,6 @@ class MemoryUsage_Plugin implements Typecho_Plugin_Interface
     {
         echo function_exists('memory_get_usage') ? round(memory_get_usage() / 1024 , 2) : 0;
     }
+
 }
+

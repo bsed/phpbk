@@ -3,13 +3,9 @@
 <html class="no-js">
 <head>
     <meta charset="<?php $this->options->charset(); ?>">
-     <meta name="robots" content="all" />
-    <meta name="wot-verification" content="de183481b8dda86d1c5b"/>
-    <meta name="norton-safeweb-site-verification" content="dgow367faunl1w8ba40xzn8cqnbka-d0o73gled3k0nl74uulgkcxratmpgpl-b40cbapjjllsxvyizifs-7k51n5f06dsf8glr5g2yqcmb-vox8tmsutgicnmwiydj6" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-     <link rel="icon" href="<?php  $this->options->themeUrl('favicon.ico'); ?>" type="image/ico">
     <title><?php $this->archiveTitle(array(
             'category'  =>  _t('分类 %s 下的文章'),
             'search'    =>  _t('包含关键字 %s 的文章'),
@@ -18,13 +14,13 @@
         ), '', ' - '); ?><?php $this->options->title(); ?></title>
 
     <!-- 使用url函数转换相关路径 -->
-    <link rel="stylesheet" href="<?php $this->options->themeUrl('normalize.min.css'); ?>">
+    <link rel="stylesheet" href="http://cdn.staticfile.org/normalize/2.1.3/normalize.min.css">
     <link rel="stylesheet" href="<?php $this->options->themeUrl('grid.css'); ?>">
     <link rel="stylesheet" href="<?php $this->options->themeUrl('style.css'); ?>">
 
     <!--[if lt IE 9]>
-    <script src="//cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-    <script src="//cdn.staticfile.org/respond.js/1.3.0/respond.min.js"></script>
+    <script src="http://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="http://cdn.staticfile.org/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 
     <!-- 通过自有函数输出HTML头部信息 -->

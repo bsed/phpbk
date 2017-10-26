@@ -1,0 +1,13 @@
+CACHE MANIFEST  
+#v1  
+  
+CACHE:  
+index.php
+usr/themes/ob/style.css 
+usr/themes/ob/favicon.ico  
+  
+NETWORK:  
+*  
+  
+FALLBACK:  
+//offline.html  

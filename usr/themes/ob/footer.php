@@ -2,7 +2,8 @@
     <div class="container">
         <p>&copy;<span class="copyright-year">2008</span> <a href="<?php $this->options->siteUrl(); ?>" class="link" target="_blank"><?php $this->options->title() ?></a><br/><?php $this->options->description(); ?></p><p>if we did all the things we are capable of, we would literally astound ourselves.</p><p> <a href="<?php $this->options->feedUrl(); ?>"><?php _e('文章 RSS'); ?></a> | 
         <a href="<?php $this->options->commentsFeedUrl(); ?>" class="link" ><?php _e('评论 RSS'); ?></a> | <a class="link" href="https://kelvin.mbioq.com/sitemap.xml"><?php _e('站点 Sitemap'); ?></a> | <a class="link" href="mailto:me@gnux.cn"><?php _e('联系 Email'); ?></a> | <a class="link" href="https://www.facebook.com/zhaoxiaofeng"><?php _e('Facebook'); ?></a> | <a class="link" href="https://twitter.com/xiaofengzhao"><?php _e('Twitter'); ?></a> | <a  class="link" href="https://www.rkecloud.com/?refcode=e9rpa2qnk"><?php _e('优惠VPS Rkecloud'); ?></a></p>
-        <p>内存占用 <?php MemoryUsage_Plugin::output(); ?> Kb.<?php TeStat_Plugin::runtime(); ?> <?php if($this->options->siteStat):?><?php $this->options->siteStat();?><?php endif;?></p><br/>
+        <p class="footer-p2">内存占用 <?php MemoryUsage_Plugin::output(); ?> Kb.<?php TeStat_Plugin::runtime(); ?> <?php if($this->options->siteStat):?><?php $this->options->siteStat();?><?php endif;?></p><br/>
+<small id="icp-cn" style="text-align: center; display: block;color: #8f8d8d;margin-top:-22px;font-size: x-small;">备案号: 京ICP备15065312号-2</small><br/>
     </div>
 </div>
 
@@ -24,7 +25,16 @@
     </div>
 </div>
 <div class="back-to-top">top</div>
-<script src="https://oe1kirisb.qnssl.com/libs/jquery/1.11.1/jquery.min.js"></script>
+<script rel="preload" as="script"  src="//og9j919f5.qnssl.com/libs/jquery/1.11.1/jquery.min.js"></script>
+<script rel="preload" as="script"  type="text/javascript" src="//kelvin.mbioq.com/usr/plugins/HighlightJs/markdown/highlight.pack.js"></script>
+<script type="text/javascript">
+                hljs.initHighlighting();
+ </script>
+<!--
+<script src="<?php $this->options->themeUrl('prism.js'); ?>"></script>
+-->
+<script src="<?php $this->options->themeUrl('transition.js'); ?>"></script>
+<script src="<?php $this->options->themeUrl('zoom.js'); ?>"></script>
 <script>
 $(document).ready(function(e) {
     // 版权处年份
@@ -54,28 +64,42 @@ $(document).ready(function(e) {
                 "transition":"ease-in-out .25s"
             });
     });
+
 });
 </script>  
+<script>!function(e,n,o){var t=e.screen,a=encodeURIComponent,r=["dt="+a(n.title),"dr="+a(n.referrer),"ul="+(o.language||o.browserLanguage),"sd="+t.colorDepth+"-bit","sr="+t.width+"x"+t.height,"vp="+e.innerWidth+"x"+e.innerHeight,"z="+ +new Date],i="?"+r.join("&");e.__beacon_img=new Image,e.__beacon_img.src="/core.php"+i}(window,document,navigator,location);</script>
 
+										  
+<!--
 <script>
-(function(){
-var bp = document.createElement('script');
-var curProtocol = window.location.protocol.split(':')[0];
-if (curProtocol === 'https') {
-   bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-} else {
-  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-}
-var s = document.getElementsByTagName('script')[0];
-s.parentNode.insertBefore(bp, s);
-})();           
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5f8206e77dfbf7468852ef0e91640a33";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-79737811-1', 'auto');
+})(window,document,'script','https://static.qiniucdn.com/public/v28677/add-on/ga/analytics.js','ga');
+ga('create', 'CN-79737811-1', 'auto');
 ga('send', 'pageview');
 </script>
+
+<script>
+jQuery(window).load(function() {
+    jQuery("#loading").fadeOut(500);
+});
+</script>
+-->
+<script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register("/sw.js?v=570");
+        }
+</script>
+
 <noscript><iframe src=*></iframe></noscript>
 </body>
 </html>

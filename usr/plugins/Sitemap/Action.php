@@ -19,8 +19,9 @@ class Sitemap_Action extends Typecho_Widget implements Widget_Interface_Do
 		->order('table.contents.created', Typecho_Db::SORT_DESC));
 
 		header("Content-Type: application/xml");
-		echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-		echo "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
+		echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+		echo "<?xml-stylesheet type='text/xsl' href='" . $options->pluginUrl . "/Sitemap/sitemap.xsl'?>\n";
+		echo "<urlset xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\nxsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\"\nxmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
 		foreach($pages AS $page) {
 			$type = $page['type'];
 			$routeExists = (NULL != Typecho_Router::get($type));

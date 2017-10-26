@@ -2,7 +2,6 @@
 /**
  * WeChatHelper Plugin
  *
- * @copyright  Copyright (c) 2011 DEFE (http://defe.me)
  * @license    GNU General Public License 2.0
  * 
  */
@@ -15,14 +14,15 @@ class WeChatHelper_Action extends Typecho_Widget implements Widget_Interface_Do
     private $_imageTpl;
     private $_itemTpl;
     private $_imageNum;
-    private $_imageDefault;
-
+    
     public function __construct($request, $response, $params = NULL)
     {
         parent::__construct($request, $response, $params);
 
         $this->db = Typecho_Db::get();
         $this->_imageNum = Helper::options()->plugin('WeChatHelper')->imageNum;
+        $this->_tulingApi = Helper::options()->plugin('WeChatHelper')->tulingApi;
+
         $this->_imageDefault = Helper::options()->plugin('WeChatHelper')->imageDefault;
         $this->_textTpl = "<xml>
                             <ToUserName><![CDATA[%s]]></ToUserName>
@@ -82,7 +82,17 @@ class WeChatHelper_Action extends Typecho_Widget implements Widget_Interface_Do
      * 
      */
     public function postAction(){
-        $postStr = file_get_contents("php://input");//$this->request->get("HTTP_RAW_POST_DATA");
+        $postStr = file_get_contents("php://input");
+	//$this->request->get("HTTP_RAW_POST_DATA");
+
+
+	//$dir = __TYPECHO_ROOT_DIR__ . __TYPECHO_PLUGIN_DIR__ . '/WeChatHelper';
+        //$myfile = $dir.'/wechatDebug.txt';
+        //$file_pointer = @fopen($myfile,"a");
+        //@fwrite($file_pointer,$postStr );
+        //@fclose($file_pointer);
+
+
         if (!empty($postStr)){
                 $options = Helper::options()->plugin('WeChatHelper');
                 $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
@@ -92,32 +102,50 @@ class WeChatHelper_Action extends Typecho_Widget implements Widget_Interface_Do
                 $msgType = $postObj->MsgType;
                 $keyword = trim($postObj->Content);
                 $cmd = strtolower(substr($keyword, 0, 1));
-                if($msgType == "text"){
-                    if($cmd=="h"){
-                        $contentStr = "\"n\" 最新日志\n\"r\" 随机日志\n\"l\" 手气不错\n\"s 关键词\" 搜索日志\n\"f\" 访客评论排行榜";
+                if($msgType == "text" ){
+                    if($cmd=="h" || $cmd=="H"){
+                        $contentStr = "\"n\" 最新日志\n\"r\" 随机日志\n\"l\" 手气不错\n\"s 关键词\" 搜索日志\n\" ";
                         $resultStr = $this->baseText($postObj, $contentStr);
-                        //$resultStr = sprintf($this->_textTpl, $fromUsername, $toUsername, $time, $contentStr);
-                    }elseif ($cmd=="f") {
+                    }elseif ($cmd=="f" || $cmd=="F") {
                         $resultStr = $this->commentRank($postObj);
-                    }elseif ($cmd=="r") {
+                    }elseif ($cmd=="r" || $cmd=="R") {
                         $resultStr = $this->randomPost($postObj);
-                    }elseif ($cmd=="n") {
+                    }elseif ($cmd=="n" || $cmd=="N") {
                         $resultStr = $this->newPost($postObj);
-                    }elseif ($cmd=="l") {
+                    }elseif ($cmd=="l" || $cmd=="L") {
                         $resultStr = $this->luckyPost($postObj);
-                    }elseif ($cmd=="s") {
+                    }elseif ($cmd=="s" || $cmd=="S") {
                         $searchParam = substr($keyword, 1);
                         $resultStr = $this->searchPost($postObj, $searchParam);
+                    }else{
+                    	$info = $keyword ;
+                        //$resultStr = $this->chatText($postObj, $info);
+			$resultStr = $this->searchPost($postObj, $searchParam);
                     }
                 }else if($msgType == "event"){
                     if($postObj->Event == "subscribe"){
                         $contentStr = $options->welcome;
                         $resultStr = $this->baseText($postObj, $contentStr);
-                        //$resultStr = sprintf($this->_textTpl, $fromUsername, $toUsername, $time, $contentStr);
+			//$resultStr = $this->newPost($postObj);
                     }
-                }
+		    if($postObj->Event == "CLICK"){
+			$eventkey = trim($postObj->EventKey);
+			if ($eventkey=="n" || $eventkey=="N") {
+			$resultStr = $this->newPost($postObj);
+			}
+			if ($eventkey=="l" || $eventkey=="L") {
+			$resultStr = $this->luckyPost($postObj);
+                        }
 
-                if($resultStr == ""){
+                        if ($eventkey=="r" || $eventkey=="R") {
+			$resultStr = $this->randomPost($postObj);
+                        }
+
+
+                    }
+
+                }
+                if(empty($resultStr)){
                     $resultStr = $this->baseText($postObj);
                 }
                 echo $resultStr;
@@ -136,8 +164,13 @@ class WeChatHelper_Action extends Typecho_Widget implements Widget_Interface_Do
     }
 
     public function action(){
-        $this->widget('Widget_User')->pass('administrator');
-        $this->response->goBack();
+        //$this->widget('Widget_User')->pass('administrator');
+        //$this->response->goBack();
+	$this->link();
+	if($this->request->is('menus')){  //菜单业务
+            Typecho_Widget::widget('WeChatHelper_Widget_Menus')->action();
+        }
+
     }
 
     private function checkSignature($_token)
@@ -159,10 +192,25 @@ class WeChatHelper_Action extends Typecho_Widget implements Widget_Interface_Do
         }
     }
     /** 基础文本信息 **/
-    private function baseText($postObj, $contentStr = null){
-        if($contentStr == null){
+    private function baseText($postObj, $contentStr=''){
+        if(empty($contentStr)){
             $options = Helper::options()->plugin('WeChatHelper');
-            $contentStr = '不明白你在说什么，但是你可以发送\'h\'来查看帮助！';
+            $contentStr =  '<<<你在说什么? 可以发送\'h\'来查看帮助！';
+        }
+        $fromUsername = $postObj->FromUserName;
+        $toUsername = $postObj->ToUserName;
+        $time = time();
+        $resultStr = sprintf($this->_textTpl, $fromUsername, $toUsername, $time, $contentStr);
+        return $resultStr;
+    }
+    /** 机器人对话 **/
+    private function chatText($postObj, $info){
+        if($info != null){
+           $key = $this->_tulingApi ;
+            $url = "http://www.tuling123.com/openapi/api?key=$key&info=$info";
+            $content = file_get_contents($url);
+            $content = json_decode($content, true);
+            $contentStr = $content['text'];
         }
         $fromUsername = $postObj->FromUserName;
         $toUsername = $postObj->ToUserName;
@@ -190,6 +238,8 @@ class WeChatHelper_Action extends Typecho_Widget implements Widget_Interface_Do
         $db = Typecho_Db::get();
         $sql = $db->select()->from('table.contents')
             ->where('table.contents.status = ?','publish')
+            ->where('table.contents.type = ?', 'post')
+            ->where('table.contents.created <= unix_timestamp(now())', 'post') //添加这一句避免未达到时间的文章提前曝光
             ->limit($this->_imageNum)
             ->order('RAND()');
         $result = $db->fetchAll($sql);
@@ -197,7 +247,6 @@ class WeChatHelper_Action extends Typecho_Widget implements Widget_Interface_Do
         $resultStr = $this->sqlData($postObj, $result);
         return $resultStr;
     }
-
     /** 手气不错 **/
     private function luckyPost($postObj){
         $db = Typecho_Db::get();
@@ -236,18 +285,34 @@ class WeChatHelper_Action extends Typecho_Widget implements Widget_Interface_Do
         $resultStr = "";
         $num = 0;
         $tmpPicUrl = "";
+
         if($data != null){
-            foreach($data as $val){
+        	foreach($data as $val){
                 $val = Typecho_Widget::widget('Widget_Abstract_Contents')->filter($val);
                 $content = Typecho_Common::subStr(strip_tags($val['text']), 0, $_subMaxNum, '...');
-                
-                $preg = "/<img\ssrc=(\'|\")(.*?)\.(jpg|png)(\'|\")/is";
-                preg_match($preg, $val['text'], $images);
-                if($images==null){
-                    $tmpPicUrl = $this->_imageDefault;
-                }else{
-                    $tmpPicUrl = $images[2].'.'.$images[3];
-                }
+                //$preg = "/<img\ssrc=(\'|\")(.*?)\.(jpg|png)(\'|\")/is";
+                $preg = "/\[.*?\]:\s*(http(s)?:\/\/.*?(jpg|png))/i"; //For markdown first pic.
+				preg_match_all( $preg, $val['text'], $matches );
+				if(isset($matches) && isset($matches[1][0])){
+				 	$tmpPicUrl = $matches[1][0];
+				}else{
+					$preg = '/<img\ssrc=(\'|\")(.*?)\.(jpg|png)(\'|\")/is';//default src pic
+					preg_match_all( $preg, $val['text'], $matches );
+					if(isset($matches) && isset($matches[1][0])){
+                                 	        $tmpPicUrl = $matches[1][0];
+                                	}else{
+						$preg = '/\!\[.*?\]\((http(s)?:\/\/.*?(jpg|png))/i';
+						preg_match_all( $preg, $val['text'], $matches );
+						if(isset($matches) && isset($matches[1][0])){
+                                          	      $tmpPicUrl = $matches[1][0];
+                                        	}else{
+							$tmpPicUrl = $this->_imageDefault;
+						}
+					}
+					
+					//$tmpPicUrl = $this->_imageDefault;
+				}
+				$tmpPicUrl = $tmpPicUrl."?imageView2/1/w/300";
                 $resultStr .= sprintf($this->_itemTpl, $val['title'], $content, $tmpPicUrl, $val['permalink']);
                 $num++;
             }
@@ -265,31 +330,5 @@ class WeChatHelper_Action extends Typecho_Widget implements Widget_Interface_Do
         return $resultStr;
     }
 
-    /** 水墙 **/
-    private function commentRank($postObj){
-        $_rankNum = Helper::options()->plugin('WeChatHelper')->rankNum;
-        $db = Typecho_Db::get();
-        $sql = $db->select('COUNT(author) AS cnt','author', 'url', 'mail')
-            ->from('table.comments')
-            ->where('status = ?', 'approved')
-            ->where('type = ?', 'comment')
-            ->where('authorId = ?', '0')
-            ->where('mail != ?', 'icesword28@qq.com')
-            ->group('author')
-            ->order('cnt', Typecho_Db::SORT_DESC)
-            ->limit($_rankNum);
-        $result = $db->fetchAll($sql);
-        $contentStr = "";
-        $num = 1;
-        foreach ($result as $val)
-        {
-            $contentStr .= $num++.'> '.$val['author'].'＠'.$val['cnt'].chr(10);
-        }
-        $fromUsername = $postObj->FromUserName;
-        $toUsername = $postObj->ToUserName;
-        $time = time();
-        $resultStr = sprintf($this->_textTpl, $fromUsername, $toUsername, $time, $contentStr);
-        return $resultStr;
-    }
 }
 ?>

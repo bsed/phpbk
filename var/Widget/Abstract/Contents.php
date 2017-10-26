@@ -72,7 +72,6 @@ class Widget_Abstract_Contents extends Widget_Abstract
     protected function ___description()
     {
         $plainTxt = str_replace("\n", '', trim(strip_tags($this->excerpt)));
-        $plainTxt = preg_replace("/[s]{2,}/","",$plainTxt);
         $plainTxt = $plainTxt ? $plainTxt : $this->title;
         return Typecho_Common::subStr($plainTxt, 0, 100, '...');
     }
@@ -689,7 +688,7 @@ class Widget_Abstract_Contents extends Widget_Abstract
 
             if ($value['attachment']->isImage) {
                 $value['text'] = '<img src="' . $value['attachment']->url . '" alt="' .
-                $value['title'] . '"  itemprop="image"/>';
+                $value['title'] . '"  />';
             } else {
                 $value['text'] = '<a href="' . $value['attachment']->url . '" title="' .
                 $value['title'] . '">' . $value['title'] . '</a>';
@@ -962,7 +961,8 @@ class Widget_Abstract_Contents extends Widget_Abstract
         if (!$parsed) {
             $html = Markdown::convert($text);
         }
-        $html = str_replace("<img ", "<img itemprop=\"image\" ", $html);
+
         return $html;
     }
 }
+

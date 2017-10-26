@@ -936,12 +936,8 @@ EOF;
      */
     public static function gravatarUrl($mail, $size, $rating, $default, $isSecure = false)
     {
-        if (defined('__TYPECHO_GRAVATAR_PREFIX__')) {
-            $url = __TYPECHO_GRAVATAR_PREFIX__;
-        } else {
-            $url = $isSecure ? 'https://sdn.geekzu.org/avatar' : 'https://secure.gravatar.com';
-            $url .= '/avatar/';
-        }
+        $url = $isSecure ? 'https://secure.gravatar.com' : 'http://www.gravatar.com';
+        $url .= '/avatar/';
 
         if (!empty($mail)) {
             $url .= md5(strtolower(trim($mail)));

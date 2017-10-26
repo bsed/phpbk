@@ -16,7 +16,7 @@
  
 <?php while($this->next()): ?>
 <div class="wrap">
-    <div class="container">
+    <div class="container" id="container">
         <div class="post">
             <?php if (array_key_exists('thumb',unserialize($this->___fields()))): ?>
             <div class="index-post-thumb">

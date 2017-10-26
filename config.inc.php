@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Typecho Blog Platform
  *
@@ -14,7 +14,8 @@ define('__TYPECHO_ROOT_DIR__', dirname(__FILE__));
 define('__TYPECHO_PLUGIN_DIR__', '/usr/plugins');
 
 /** 定义插件目录(相对路径) */
-define('__TYPECHO_CDN_DIR__', 'https://dn-imgpic.qbox.me');
+define('__TYPECHO_CDN_DIR__', 'https://og9j919f5.qnssl.com');
+
 /** 定义模板目录(相对路径) */
 define('__TYPECHO_THEME_DIR__', '/usr/themes');
 
@@ -56,11 +57,11 @@ Typecho_Common::init();
 /** 定义数据库参数 */
 $db = new Typecho_Db('Mysql', 'typecho_');
 $db->addServer(array (
-  'host' => 'localhost',
+  'host' => '127.0.0.1',
   'user' => 'madmin',
-  'password' => 'LzVr6CB9&P(r}4CZxDaQ',
+  'password' => admin',
   'charset' => 'utf8',
   'port' => '3306',
-  'database' => 'dbblogs',
+  'database' => 'dbblog',
 ), Typecho_Db::READ | Typecho_Db::WRITE);
 Typecho_Db::set($db);
